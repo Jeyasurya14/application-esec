@@ -1,0 +1,74 @@
+<div class="time-picker">
+    <button 
+    class="time-display" 
+    type="button" 
+    (click)="toggle()">
+        <i class="bi bi-clock"></i>
+        {{displayTime()}}
+        <!-- <i class="bi"
+        [class.bi-chevron-dowm]="!isOpen()"
+        [class..bi-chevron-up]="isOpen()"
+        ></i> -->
+        @if(isOpen()){
+            <i class="bi bi-chevron-up"></i>
+        }@else {
+            <i class="bi bi-chevron-down"></i>
+        }
+    </button>
+    @if(isOpen()){
+        <!-- <div class="popup">
+
+            <div class="time-section">
+                <div class="title">Start </div>
+                <div class="time-selector">
+                    <select [value]="startHour()" (change)="changeStartHour($any($event.target).value)">
+                       @for (hour of hours; track hour) {
+                            <option [value]="hour">{{hour}}</option>
+                       }
+                    </select>
+                    <span class="colon">:</span>
+                    <select [value]="startMinute()" (change)="changeStartMinute($any($event.target).value)">
+                        @for(minute of Minutes; track minute){
+                            <option [value]="minute">{{minute}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="time-section">
+                <div class="title">End </div>
+                <div class="time-selector">
+                    <select [value]="endHour()" (change)="changeEndHour($any($event.target).value)">
+                        @for(hour of hours; track hour){
+                            <option [value]="hour">{{hour}}</option>
+                        }
+                    </select>
+                    <span class="colon">:</span>
+                    <select [value]="endMinute()" (change)="changeEndMinute($any($event.target).value)">
+                        @for(minute of Minutes; track minute){
+                            <option [value]="minute">{{minute}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div> -->
+   <div class="popup">
+     <div class="time-section">
+        <span class="time-label">Start Time</span>
+        <div class="time-input-group">
+            <input type="text" maxlength="2" [value]="startHour()" (input)="startHour.set($any($event.target).value); emit()" (blur)="validateTime()">
+            <span class="colon">:</span>
+            <input type="text" maxlength="2" [value]="startMinute()" (input)="startMinute.set($any($event.target).value); emit()" (blur)="validateTime()">
+        </div>
+     </div>
+     <div class="time-section">
+        <span class="time-label">End Time</span>
+        <div class="time-input-group">
+            <input type="text" maxlength="2" [value]="endHour()" (input)="endHour.set($any($event.target).value); emit()" (blur)="validateTime()">
+            <span class="colon">:</span>
+            <input type="text" maxlength="2" [value]="endMinute()" (input)="endMinute.set($any($event.target).value); emit()" (blur)="validateTime()">
+        </div>
+     </div>
+     </div>
+    }
+    
+</div>

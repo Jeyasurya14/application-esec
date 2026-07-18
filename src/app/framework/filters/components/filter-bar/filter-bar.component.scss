@@ -1,0 +1,166 @@
+@use '../../../../../styles/variables' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.filter-bar {
+  background: $white;
+  border-bottom: 1px solid $border-color;
+  transition: box-shadow $transition-fast;
+
+  &--collapsed {
+    box-shadow: none;
+  }
+}
+
+// ─── Header row ──────────────────────────────────────────
+.filter-bar__header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-2 $spacing-3;
+  min-height: 44px;
+}
+
+.filter-bar__header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.filter-bar__header-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.filter-bar__header-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  flex-shrink: 0;
+}
+
+// ─── Collapse toggle ─────────────────────────────────────
+.filter-bar__toggle {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: $border-radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $gray-400;
+  font-size: 11px;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $gray-100;
+    color: $gray-600;
+  }
+}
+
+// ─── Title ───────────────────────────────────────────────
+.filter-bar__title {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $gray-700;
+  letter-spacing: 0.2px;
+  user-select: none;
+}
+
+// ─── Active badge ────────────────────────────────────────
+.filter-bar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $primary;
+  background: $primary-light;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+// ─── Rows counter ────────────────────────────────────────
+.filter-bar__rows {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 0 $spacing-2;
+  user-select: none;
+}
+
+.filter-bar__rows-value {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $gray-800;
+  font-variant-numeric: tabular-nums;
+}
+
+.filter-bar__rows-label {
+  font-size: $font-size-xs;
+  font-weight: 400;
+  color: $gray-400;
+  text-transform: lowercase;
+}
+
+// ─── Reset button ────────────────────────────────────────
+.filter-bar__reset {
+  width: 30px;
+  height: 30px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-md;
+  background: $white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $gray-400;
+  font-size: 12px;
+  transition: all $transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    background: $gray-50;
+    border-color: $gray-300;
+    color: $gray-600;
+  }
+
+  &--active {
+    color: $primary;
+    border-color: #bfdbfe;
+    background: $primary-light;
+
+    &:hover {
+      background: #dbeafe;
+      color: $primary-hover;
+    }
+  }
+}
+
+// ─── Body (collapsible controls area) ────────────────────
+.filter-bar__body {
+  border-top: 1px solid $border-light;
+  padding: $spacing-3 $spacing-3 $spacing-3 $spacing-8;
+  background: $gray-50;
+}
+
+.filter-bar__controls {
+  display: flex;
+  align-items: flex-end;
+  gap: $spacing-3;
+  flex-wrap: wrap;
+}
+
+.filter-bar__item {
+  flex-shrink: 0;
+}

@@ -1,0 +1,23 @@
+<div class="context-menu" 
+    (click)="$event.stopPropagation()">
+    @for(item of menu.items(); track item.id){
+    @if(item.separator){
+        <span class="separator"></span>
+    }@else{
+        <button
+        class="item"
+        type="button"
+        [disabled]="item.disabled"
+        (click)="execute(item)"
+        >
+        @if(item.icon){
+            <i [class]="item.icon"></i>
+        }
+        <span>
+            {{item.text}}
+        </span>
+
+        </button>
+    }
+}
+</div>

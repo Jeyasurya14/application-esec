@@ -1,0 +1,21 @@
+<div class="sidebar">
+  @for (module of sidebar.modules(); track module.id) {
+    <button
+      #trigger
+      class="menu-item"
+      [class.selected]="sidebar.selectedModule() === module.id"
+      (click)="selectModule(module, trigger)"
+      [title]="module.title"
+      type="button"
+    >
+      <i [class]="module.icon" class="bi"></i>
+    </button>
+  }
+  <div class="sidebar-text">
+    @for(menutext of menuTextItems; track menutext.id){
+      <button class="menu-textitem" [title]="menutext.title" type="button">
+        <span>{{ menutext.char }}</span>
+      </button>
+    }
+  </div>
+</div>

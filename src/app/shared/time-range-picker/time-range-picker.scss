@@ -1,0 +1,113 @@
+:host {
+  display: inline-block;
+  position: relative;
+}
+
+.time-picker {
+  position: relative;
+}
+
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 140px;
+  height: 24px;
+  padding: 0 8px;
+  background: #fff;
+  border: 1px solid #d0d5dd;
+  border-radius: 4px;
+  color: #1a2a3a;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .15s;
+  font-family: inherit;
+}
+
+.time-display i {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.time-display i:last-child {
+  margin-left: auto;
+  font-size: 10px;
+}
+
+.time-display:hover {
+  border-color: #3b82f6;
+}
+
+.popup {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  right: 0;
+  padding: 10px 12px;
+  width: auto;
+  background: #ffffff;
+  border: 1px solid #d9dee7;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(15,23,42,.12);
+  z-index: 1000;
+}
+
+.time-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.time-section:last-child {
+  margin-bottom: 0;
+}
+
+.time-label {
+  width: 65px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  flex-shrink: 0;
+}
+
+.time-input-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.time-input-group input {
+  width: 36px;
+  height: 30px;
+  border: 1px solid #d0d5dd;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+  font-family: inherit;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.time-input-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,.15);
+}
+
+.colon {
+  font-size: 16px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .popup {
+    width: 100%;
+    left: 0;
+  }
+  .time-display {
+    width: 100%;
+  }
+}

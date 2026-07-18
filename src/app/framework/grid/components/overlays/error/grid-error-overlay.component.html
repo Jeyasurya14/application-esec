@@ -1,0 +1,9 @@
+<div class="overlay">
+  @if (message()) {
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <div>{{ message() }}</div>
+  } @else {
+    <i class="bi bi-inbox"></i>
+    <div>No data available</div>
+  }
+</div>

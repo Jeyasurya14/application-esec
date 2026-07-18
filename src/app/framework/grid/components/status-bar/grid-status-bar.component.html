@@ -1,0 +1,17 @@
+<div class="status-bar">
+  <div class="status-bar__left">
+    <span class="status-bar__item">
+      <span class="status-bar__label">Total Rows</span>
+      <span class="status-bar__value">{{ state.totalRows() }}</span>
+    </span>
+  </div>
+  <div class="status-bar__right">
+    <span class="status-bar__item">
+      <span class="status-bar__label">Selected</span>
+      <span class="status-bar__value">{{ state.selectedRows() }}</span>
+    </span>
+    @if (state.loading()) {
+      <span class="status-bar__spinner"></span>
+    }
+  </div>
+</div>

@@ -1,0 +1,43 @@
+  @if(isOpen()){
+<div class="sidebar-panel">
+
+    <div class="sidebar-header-row">
+      <div class="sidebar-icon-title">
+        <i class="{{icon()}}"></i>
+        <div class="sidebar-title">{{ title()}}</div>
+        <div class="sidebar-subtitle">{{ description() }}</div>
+      </div>
+      <button class="close-btn" type="button" (click)="close()" title="Close panel">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-filter">
+      <i class="bi bi-search filter-icon"></i>
+      <input
+        class="filter-input"
+        type="text"
+        placeholder="{{placeholder()}}"
+        [value]="filterText()"
+        (input)="filterText.set($any($event.target).value)"
+      />
+    </div>
+
+    <div class="sidebar-body">
+      <div class="sidebar-actions">
+        @for (screen of filteredScreens(); track screen.id) {
+          <button 
+          class="action-chip" 
+          [class.active]="selectedScreen() === screen.id" 
+          (click)="selectScreen(screen)"
+          type="button">
+          {{ screen.title }}
+        </button>
+        }
+      </div>
+    </div>
+  
+  </div>
+}

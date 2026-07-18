@@ -1,0 +1,16 @@
+@if (workspace.hasTabs()) {
+<app-tab-strip
+[tabs]="workspace.tabs()"
+(activate)="activate($event)"
+(close)="close($event)"
+(contextMenu)="openContextMenu($event)"
+(dragStart)="dragStart($event)"
+(drop)="drop($event)"
+>
+</app-tab-strip>
+}
+<div class="workspace-content">
+  @if (workspace.activeTab()) {
+      <app-workspace-host></app-workspace-host>
+  }
+</div>

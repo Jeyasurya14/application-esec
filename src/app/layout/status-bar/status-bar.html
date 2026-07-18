@@ -1,0 +1,105 @@
+<!-- <div class="status-bar">
+  <div class="status-left">
+    @for(item of statusItems; track item.id){
+      <div class="status-item" [class.icon-only]="!item.value">
+        @if(item.icon){
+          <i class="bi status-icon" [class]="item.icon"></i>
+        }
+        @if(item.value){
+          <span>{{item.value}}</span>
+        }
+      </div>
+    }
+    <button class="parameter-btn" type="button">Parameter</button>
+  </div>
+</div> -->
+
+<div class="status-bar">
+
+    <!-- Period -->
+    <div class="status-item period">
+
+        <select
+            class="period-select"
+            [ngModel]="selectedPreset()?.id"
+            (ngModelChange)="selectPreset($event)">
+
+            @for (item of presets(); track item.id) {
+
+                <option [value]="item.id">
+
+                    {{ item.label }}
+
+                </option>
+
+            }
+
+        </select>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Start Date -->
+    <div class="status-item">
+
+        <i class="bi bi-calendar3"></i>
+
+        @if (selectedRange(); as range) {
+
+            {{ range.start | date:'dd-MMM-yyyy' }}
+
+        }
+
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- End Date -->
+    <div class="status-item">
+
+        <i class="bi bi-calendar3"></i>
+
+        @if (selectedRange(); as range) {
+
+            {{ range.end | date:'dd-MM-yyyy' }}
+
+        }
+
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <div class="status-timer">
+        <app-time-range-picker
+        [start]="startTime()"
+        [end]="endTime()"
+        (timeChange)="onTimeChanged($event)">
+        </app-time-range-picker>
+    </div>
+    
+    <!-- Parameter -->
+    <button
+        class="parameter-btn">
+
+        Parameter
+
+    </button>
+
+    <!-- Spacer -->
+    <div class="spacer"></div>
+
+    <!-- Refresh -->
+    <button
+        class="icon-btn"
+        title="Refresh"
+        (click)="refresh()">
+
+        <i class="bi bi-arrow-clockwise"></i>
+
+    </button>
+
+</div>

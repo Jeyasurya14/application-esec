@@ -1,0 +1,123 @@
+@use 'bootstrap/scss/bootstrap' as *;
+@use 'bootstrap-icons/font/bootstrap-icons' as *;
+@use 'ag-grid-community/styles/ag-grid.css';
+@use 'ag-grid-community/styles/ag-theme-balham.css';
+@import 'styles/variables';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  overflow: hidden;
+  color: $gray-800;
+  background: $content-bg;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// ─── Scrollbar ──────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: $gray-300;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $gray-400;
+}
+
+// ─── Focus Ring ─────────────────────────────────────────────
+*:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+// ─── Selection ──────────────────────────────────────────────
+::selection {
+  background: $primary-light;
+  color: $primary-dark;
+}
+
+// ─── AG Grid Theme Override ─────────────────────────────────
+.ag-theme-balham {
+  --ag-font-family: #{$font-family};
+  --ag-font-size: #{$font-size-base};
+  --ag-header-font-size: #{$font-size-sm};
+  --ag-header-font-weight: 600;
+  --ag-header-background-color: #0066cc;
+  --ag-header-foreground-color: #ffffff;
+  --ag-foreground-color: #{$gray-800};
+  --ag-background-color: #{$white};
+  --ag-border-color: #{$border-color};
+  --ag-row-hover-color: #{$gray-50};
+  --ag-row-border-color: #{$gray-100};
+  --ag-selected-row-background-color: #{$primary-light};
+  --ag-range-selection-background-color: #{rgba($primary, 0.08)};
+  --ag-range-selection-border-color: #{$primary};
+  --ag-header-column-resize-handle-color: #{$gray-200};
+  --ag-odd-row-background-color: #{$white};
+  --ag-input-focus-border-color: #{$primary};
+  --ag-input-focus-box-shadow: 0 0 0 2px #{rgba($primary, 0.15)};
+  --ag-chip-background-color: #{$gray-100};
+  --ag-card-shadow: #{$shadow-md};
+  --ag-popup-shadow: #{$shadow-lg};
+  --ag-cell-horizontal-padding: 10px;
+  --ag-cell-vertical-padding: 6px;
+  --ag-header-height: 36px;
+  --ag-list-item-height: 28px;
+  --ag-row-height: 34px;
+}
+
+// ─── AG Grid Alpine Theme Override ──────────────────────────
+.ag-theme-alpine {
+  @extend .ag-theme-balham;
+  --ag-alpine-active-color: #{$primary};
+  --ag-selected-row-background-color: #{rgba($primary, 0.06)};
+  --ag-row-hover-color: #{rgba($primary, 0.03)};
+}
+
+// ─── Bootstrap Overrides ────────────────────────────────────
+.form-control,
+.form-select {
+  font-size: $font-size-base;
+  border-color: $border-color;
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba($primary, 0.15);
+  }
+}
+
+// ─── Utility Classes ────────────────────────────────────────
+.text-muted {
+  color: $gray-500;
+}
+.text-primary {
+  color: $primary;
+}
+.text-success {
+  color: $success;
+}
+.text-warning {
+  color: $warning;
+}
+.text-danger {
+  color: $danger;
+}
+.text-info {
+  color: $info;
+}

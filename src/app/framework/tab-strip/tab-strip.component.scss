@@ -1,0 +1,175 @@
+@use '../../../styles/variables' as *;
+
+.tab-strip {
+  display: flex;
+  align-items: stretch;
+  height: 36px;
+  padding: 0 4px;
+  background: $gray-100;
+  border-bottom: 1px solid $border-color;
+  overflow: hidden;
+  flex-shrink: 0;
+  gap: 1px;
+}
+
+.tab-strip:empty {
+  display: none;
+}
+
+.tabs {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  gap: 1px;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 120px;
+  max-width: 240px;
+  flex: 0 0 auto;
+  width: 180px;
+  padding: 0 10px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background 0.12s;
+  overflow: hidden;
+
+  &:hover {
+    background: darken($gray-100, 3%);
+  }
+
+  &.active {
+    background: $white;
+    border-right-color: $border-color;
+    box-shadow: inset 0 -2px 0 $primary;
+  }
+}
+
+.tab.active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: $primary;
+}
+
+.tab-icon {
+  font-size: 13px;
+  color: $gray-500;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.tab.active .tab-icon {
+  color: $primary;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: $gray-600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+}
+
+.tab.active .title {
+  font-weight: 500;
+  color: $gray-900;
+}
+
+.tab-tag {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 600;
+  color: $gray-400;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  white-space: nowrap;
+  text-transform: uppercase;
+  background: $gray-200;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.tab-pin {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: $warning;
+  display: flex;
+  align-items: center;
+}
+
+.close-button {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  color: transparent;
+  font-size: 13px;
+  padding: 0;
+  transition:
+    background 0.1s,
+    color 0.1s;
+  margin-left: auto;
+}
+
+.tab:hover .close-button,
+.tab.active .close-button {
+  color: $gray-400;
+}
+
+.close-button:hover {
+  background: $gray-200;
+  color: $gray-600 !important;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  border: none;
+  background: transparent;
+  color: $gray-500;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.1s;
+  border-radius: 0;
+
+  &:hover {
+    background: darken($gray-100, 3%);
+  }
+}
+
+.sub-title {
+  display: none;
+}

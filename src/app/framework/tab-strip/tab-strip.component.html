@@ -1,0 +1,56 @@
+<div class="tab-strip">
+    @if (canScrollLeft()) {
+        <button class="nav" (click)="scrollLeft()">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+    }
+
+    <div #container class="tabs">
+        @for (tab of tabs(); track tab.id; let index = $index) {
+            <div
+                class="tab"
+                draggable="true"
+                [class.active]="tab.active"
+                [title]="tab.sidebar_title + ' · ' + tab.title"
+                (click)="activate.emit(tab.id)"
+                (contextmenu)="$event.preventDefault(); contextMenu.emit({ event: $event, id: tab.id })"
+                (dragstart)="onDragStart(index)"
+                (dragover)="$event.preventDefault()"
+                (dragenter)="onDragEnter(index)"
+                (drop)="onDrop(index)"
+                (dragend)="onDragEnd()"
+            >
+                @if (tab.icon) {
+                    <i class="tab-icon" [class]="tab.icon"></i>
+                }
+
+                <span class="title">{{ tab.title }}</span>
+
+                @if (tab.sidebar_title) {
+                    <span class="tab-tag">{{ tab.sidebar_title }}</span>
+                }
+
+                @if (tab.pinned) {
+                    <i class="bi bi-pin-angle-fill tab-pin"></i>
+                }
+
+                @if (tab.closable) {
+                    <button
+                        type="button"
+                        class="close-button"
+                        (click)="$event.stopPropagation(); close.emit(tab.id)"
+                        title="Close"
+                    >
+                        <i class="bi bi-x"></i>
+                    </button>
+                }
+            </div>
+        }
+    </div>
+
+    @if (canScrollRight()) {
+        <button class="nav" (click)="scrollRight()">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    }
+</div>

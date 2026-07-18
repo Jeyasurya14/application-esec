@@ -1,0 +1,19 @@
+<div class="toolbar">
+<div class="toolbar-title">
+    {{toolbar().title}}
+</div>
+<div class="toolbar-actions">
+    @for(button of toolbar().buttons; track button.id){
+        <button
+        type="button"
+        class="toolbar-button"
+        (click)="execute(button.id)"
+        >
+            <i [class]="button.icon"></i>
+            <span>
+                {{button.title}}
+            </span>
+        </button>
+    }
+</div>
+</div>

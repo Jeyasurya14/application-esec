@@ -1,0 +1,76 @@
+import type { GridColumn } from '../grid';
+
+export interface ColumnDef extends GridColumn {}
+
+export const COLUMN_REGISTRY: Record<string, ColumnDef> = {
+
+  sw: { field: 'sw', headerName: 'Software', width: 180 },
+  server: { field: 'server', headerName: 'Server', width: 160 },
+  location: { field: 'location', headerName: 'Location', width: 140 },
+  lic: { field: 'lic', headerName: 'License', width: 100 },
+  lic_name: { field: 'lic_name', headerName: 'License Name', width: 200 },
+  divn: { field: 'divn', headerName: 'Division', width: 90 },
+  bundle: { field: 'bundle', headerName: 'Bundle', width: 200 },
+  status: { field: 'status', headerName: 'Status', width: 100 },
+  month_year: { field: 'month_year', headerName: 'Month/Year', width: 120 },
+
+  qty_i: { field: 'qty_i', headerName: 'Qty I', width: 80 },
+  l_qty_i: { field: 'l_qty_i', headerName: 'L Qty I', width: 80 },
+  max_qty_i: { field: 'max_qty_i', headerName: 'Max Qty', width: 80 },
+  qty_db: { field: 'qty_db', headerName: 'Qty DB', width: 100 },
+  qty_dp: { field: 'qty_dp', headerName: 'Qty DP', width: 100 },
+  qty_dpm: { field: 'qty_dpm', headerName: 'Qty DPM', width: 100 },
+  qty_da: { field: 'qty_da', headerName: 'Qty DA', width: 100 },
+  qty_dam: { field: 'qty_dam', headerName: 'Qty DAM', width: 110 },
+  qty_wp: { field: 'qty_wp', headerName: 'Qty WP', width: 100 },
+  qty_wpm: { field: 'qty_wpm', headerName: 'Qty WPM', width: 110 },
+  qty_wa: { field: 'qty_wa', headerName: 'Qty WA', width: 110 },
+  qty_wam: { field: 'qty_wam', headerName: 'Qty WAM', width: 125 },
+  qty_r: { field: 'qty_r', headerName: 'Qty R', width: 80 },
+
+  
+  p_dp: { field: 'p_dp', headerName: 'Peak (DP)', width: 110 },
+  p_dpm: { field: 'p_dpm', headerName: 'Peak Mean (DPM)', width: 120 },
+  p_da: { field: 'p_da', headerName: 'Avg (DA)', width: 100 },
+  p_dam: { field: 'p_dam', headerName: 'Avg Mean (DAM)', width: 120 },
+  p_wp: { field: 'p_wp', headerName: 'Work Peak (WP)', width: 120 },
+  p_wpm: { field: 'p_wpm', headerName: 'Work Peak Mean (WPM)', width: 150 },
+  p_wa: { field: 'p_wa', headerName: 'Work Avg (WA)', width: 120 },
+  p_wam: { field: 'p_wam', headerName: 'Work Avg Mean (WAM)', width: 150 },
+  p_dw_q: { field: 'p_dw_q', headerName: 'Peak (DW)', width: 100 },
+
+
+  ndept: { field: 'ndept', headerName: '# Dept', width: 80 },
+  ndivn: { field: 'ndivn', headerName: '# Div', width: 80 },
+  w_days: { field: 'w_days', headerName: 'W Days', width: 100 },
+  w_dp_days: { field: 'w_dp_days', headerName: 'W DP Days', width: 110 },
+  days: { field: 'days', headerName: 'Days', width: 110 },
+  di: { field: 'di', headerName: 'DI', width: 100 },
+  de: { field: 'de', headerName: 'DE', width: 110 },
+  ad: { field: 'ad', headerName: 'AD', width: 110 },
+  td: { field: 'td', headerName: 'TD', width: 100 },
+  tot_du_q: { field: 'tot_du_q', headerName: 'Total DU Q', width: 110 },
+  tlh_24: { field: 'tlh_24', headerName: 'TLH 24', width: 90 },
+  date: { field: 'date', headerName: 'Date', width: 90 },
+  start_date: { field: 'start_date', headerName: 'Start Date', width: 110 },
+  expiry: { field: 'expiry', headerName: 'Expiry', width: 110 },
+  last_date: { field: 'last_date', headerName: 'Last Date', width: 110 },
+
+  li_holi: { field: 'li_holi', headerName: 'Holidays', width: 80 },
+  used_lic_hours: { field: 'used_lic_hours', headerName: 'Used Lic Hours', width: 100 },
+  avail_lic_hours: { field: 'avail_lic_hours', headerName: 'Avail Lic Hours', width: 120 },
+
+
+  wksn: { field: 'wksn', headerName: 'Workstation', width: 180 },
+  ip: { field: 'ip', headerName: 'IP Address', width: 130 },
+  macid: { field: 'macid', headerName: 'MAC Address', width: 130 },
+  ncore: { field: 'ncore', headerName: 'Cores', width: 100 },
+  nproc: { field: 'nproc', headerName: 'Processors', width: 120 },
+  os: { field: 'os', headerName: 'OS', width: 120 },
+  ram: { field: 'ram', headerName: 'RAM (GB)', width: 110 },
+  serialno: { field: 'serialno', headerName: 'Serial No', width: 120 },
+  u_time: { field: 'u_time', headerName: 'Update Time', width: 130 },
+  grp: { field: 'grp', headerName: 'Group', width: 120 },
+  a_status: { field: 'a_status', headerName: 'Agent Status', width: 120 },
+  c_status: { field: 'c_status', headerName: 'Conn Status', width: 120 },
+};

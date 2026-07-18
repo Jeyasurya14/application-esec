@@ -1,0 +1,133 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.status-bar {
+  height: $status-bar-height;
+  min-height: $status-bar-height;
+  display: flex;
+  align-items: center;
+  background: $status-bar-bg;
+  border-top: 1px solid $border-color;
+  padding-inline: 6px;
+  gap: 4px;
+  overflow: visible;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  color: $gray-700;
+  font-size: $status-text-size;
+  font-weight: 500;
+  padding-inline: 6px;
+  height: 100%;
+}
+
+.divider {
+  width: 1px;
+  align-self: stretch;
+  background: $gray-200;
+}
+
+.period {
+  min-width: 120px;
+}
+
+.period-select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: $status-text-size;
+  font-weight: 600;
+  color: $primary;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.time-section {
+  gap: 2px;
+}
+
+.time-input {
+  border: 1px solid $border-color;
+  background: $white;
+  outline: none;
+  width: 65px;
+  font-size: $status-text-size;
+  color: $gray-800;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: inherit;
+  font-weight: 500;
+  height: 18px;
+}
+
+.separator {
+  color: $gray-500;
+  font-size: $status-text-size;
+  line-height: 1;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.icon-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid $border-color;
+  background: $white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: $transition-fast;
+
+  &:hover {
+    background: $gray-50;
+  }
+
+  i {
+    font-size: 10px;
+    color: $gray-600;
+  }
+}
+
+.parameter-btn {
+  border: none;
+  background: $primary;
+  color: white;
+  padding: 0 10px;
+  height: 18px;
+  border-radius: 3px;
+  font-size: $status-text-size;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background: $primary-hover;
+  }
+}
+
+.status-timer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.status-item i {
+  color: $gray-500;
+  font-size: $status-text-size;
+}

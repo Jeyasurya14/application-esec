@@ -1,0 +1,185 @@
+<div class="filter-bar" [class.filter-bar--collapsed]="!expanded()">
+  <div class="filter-bar__header">
+    <div class="filter-bar__header-left">
+      <button
+        class="filter-bar__toggle"
+        (click)="toggleExpanded()"
+        [title]="expanded() ? 'Hide filters' : 'Show filters'"
+      >
+        <i
+          class="bi"
+          [class.bi-chevron-down]="expanded()"
+          [class.bi-chevron-right]="!expanded()"
+        ></i>
+      </button>
+      <span class="filter-bar__title">Filters</span>
+      @if (activeCount() > 0) {
+        <span class="filter-bar__badge">{{ activeCount() }}</span>
+      }
+    </div>
+
+    <div class="filter-bar__header-center">
+      @if (searchControl(); as search) {
+        <filter-search
+          [placeholder]="search.placeholder"
+          [width]="280"
+          (changed)="onChange(search.id, $event, search)"
+        />
+      }
+    </div>
+
+    <div class="filter-bar__header-right">
+      <div class="filter-bar__rows">
+        <span class="filter-bar__rows-value">{{ gridState.totalRows() }}</span>
+        <span class="filter-bar__rows-label">rows</span>
+      </div>
+      <button
+        class="filter-bar__reset"
+        [class.filter-bar__reset--active]="activeCount() > 0"
+        (click)="onReset()"
+        title="Reset all filters"
+      >
+        <i class="bi bi-arrow-counterclockwise"></i>
+      </button>
+    </div>
+  </div>
+
+  @if (expanded() && bodyControls().length > 0) {
+    <div class="filter-bar__body">
+      <div class="filter-bar__controls">
+        @for (ctrl of bodyControls(); track ctrl.id) {
+          <div class="filter-bar__item" [style.width.px]="ctrl.width">
+            @switch (ctrl.type) {
+              @case ('text') {
+                <filter-text
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder"
+                  [width]="ctrl.width ?? 140"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('number') {
+                <filter-text
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder || 'Number'"
+                  [width]="ctrl.width ?? 120"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('select') {
+                <filter-select
+                  [label]="ctrl.label"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 140"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('multi-select') {
+                <filter-multi-select
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 180"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('date') {
+                <filter-date
+                  [label]="ctrl.label"
+                  [width]="ctrl.width ?? 140"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('date-range') {
+                <filter-date-range
+                  [label]="ctrl.label"
+                  [width]="ctrl.width ?? 300"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('toggle') {
+                <filter-toggle
+                  [label]="ctrl.label"
+                  [width]="ctrl.width ?? 130"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('period-range') {
+                <filter-period-range
+                  [label]="ctrl.label"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 200"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('grouped-select') {
+                <filter-grouped-select
+                  [label]="ctrl.label"
+                  [groups]="ctrl.groups ?? []"
+                  [width]="ctrl.width ?? 180"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('checkbox-group') {
+                <filter-checkbox-group
+                  [label]="ctrl.label"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 320"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('autocomplete') {
+                <filter-autocomplete
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 200"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('chip') {
+                <filter-chip
+                  [label]="ctrl.label"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 200"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('status-chip') {
+                <filter-chip
+                  [label]="ctrl.label"
+                  [options]="ctrl.options ?? []"
+                  [width]="ctrl.width ?? 200"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('numeric-range') {
+                <filter-numeric-range
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder"
+                  [width]="ctrl.width ?? 200"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @case ('tag') {
+                <filter-tag
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder"
+                  [width]="ctrl.width ?? 200"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+              @default {
+                <filter-text
+                  [label]="ctrl.label"
+                  [placeholder]="ctrl.placeholder"
+                  (changed)="onChange(ctrl.id, $event, ctrl)"
+                />
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
