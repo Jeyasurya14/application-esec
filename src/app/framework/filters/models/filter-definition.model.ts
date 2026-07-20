@@ -6,4 +6,5 @@ export interface FilterDefinition {
   fields?: string[];
   type: FilterType;
   ignoreEmpty?: boolean;
+  valueFieldMap?: Record<string, string>;
 }

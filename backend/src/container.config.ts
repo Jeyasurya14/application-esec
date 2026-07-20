@@ -2,7 +2,6 @@ import { Container, TOKENS } from './framework/di';
 import { MySqlService } from './framework/database';
 import { LoggerService } from './framework/logger';
 import { ProcedureValidator } from './framework/procedure/validator/procedure.validator';
-import { ProcedureParser } from './framework/procedure/parser/procedure.parser';
 import { ProcedureExecutor } from './framework/procedure/executor/procedure.executor';
 import { ProcedureService } from './framework/procedure/service/procedure.service';
 import { ProcedureModuleService } from './modules/procedure/service/procedure.service';
@@ -25,14 +24,12 @@ function configureContainer(): Container {
 
   // Procedure Engine
   container.register(TOKENS.PROCEDURE_VALIDATOR, () => new ProcedureValidator());
-  container.register(TOKENS.PROCEDURE_PARSER, () => new ProcedureParser());
   container.register(
     TOKENS.PROCEDURE_EXECUTOR,
     () =>
       new ProcedureExecutor(
         container.resolve<MySqlService>(TOKENS.MYSQL_SERVICE),
         container.resolve<ProcedureValidator>(TOKENS.PROCEDURE_VALIDATOR),
-        container.resolve<ProcedureParser>(TOKENS.PROCEDURE_PARSER),
       ),
   );
   container.register(

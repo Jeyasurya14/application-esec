@@ -8,6 +8,6 @@ export class QueryModuleService {
   }
 
   async execute<T>(sql: string): Promise<T[]> {
-    return await this.procedure.execute<T>(sql);
+    return await this.procedure.executeRaw<T>(sql);
   }
 }

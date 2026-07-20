@@ -1,4 +1,4 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'filter-toggle',
@@ -90,6 +90,7 @@ import { Component, input, output, model } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleFilterComponent {
   readonly value = model(false);

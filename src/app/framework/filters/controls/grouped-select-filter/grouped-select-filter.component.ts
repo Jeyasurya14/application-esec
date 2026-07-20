@@ -1,4 +1,4 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 import { FilterOptionGroup } from '../../models';
 
 @Component({
@@ -91,6 +91,7 @@ import { FilterOptionGroup } from '../../models';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupedSelectFilterComponent {
   readonly value = model<string>('');

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnDestroy, output, signal } from '@angular/core';
+import { Component, computed, inject, input, OnDestroy, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FilterConfig, FilterState } from '../../models';
 import { FilterControl } from '../../models/filter-control.model';
 import { FilterService } from '../../services';
@@ -17,7 +17,7 @@ import { PeriodRangeFilterComponent } from '../../controls/period-range-filter';
 import { GroupedSelectFilterComponent } from '../../controls/grouped-select-filter';
 import { CheckboxGroupFilterComponent } from '../../controls/checkbox-group-filter';
 import { AutocompleteFilterComponent } from '../../controls/autocomplete-filter';
-import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
 
 const CONTROL_TYPES_IMMEDIATE = new Set<string>([
   'select',
@@ -54,6 +54,7 @@ const CONTROL_TYPES_IMMEDIATE = new Set<string>([
   ],
   templateUrl: './filter-bar.component.html',
   styleUrl: './filter-bar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterBarComponent implements OnDestroy {
   readonly config = input.required<FilterConfig>();
@@ -71,7 +72,7 @@ export class FilterBarComponent implements OnDestroy {
 
   constructor() {
     this.debounce$
-      .pipe(debounceTime(this.debounceMs()), distinctUntilChanged(), takeUntil(this.destroy$))
+      .pipe(debounceTime(this.debounceMs()), takeUntil(this.destroy$))
       .subscribe(() => this.emit());
   }
 

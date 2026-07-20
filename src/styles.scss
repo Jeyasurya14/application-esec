@@ -1,19 +1,19 @@
-@use 'bootstrap/scss/bootstrap' as *;
+@use 'bootstrap/scss/bootstrap' as bs;
 @use 'bootstrap-icons/font/bootstrap-icons' as *;
 @use 'ag-grid-community/styles/ag-grid.css';
 @use 'ag-grid-community/styles/ag-theme-balham.css';
-@import 'styles/variables';
+@use 'styles/variables' as vars;
 
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: $font-family;
-  font-size: $font-size-base;
+  font-family: vars.$font-family;
+  font-size: bs.$font-size-base;
   overflow: hidden;
-  color: $gray-800;
-  background: $content-bg;
+  color: vars.$gray-800;
+  background: vars.$content-bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,49 +33,49 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: $gray-300;
+  background: vars.$gray-300;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: $gray-400;
+  background: vars.$gray-400;
 }
 
 // ─── Focus Ring ─────────────────────────────────────────────
 *:focus-visible {
-  outline: 2px solid $primary;
+  outline: 2px solid vars.$primary;
   outline-offset: 1px;
   border-radius: 2px;
 }
 
 // ─── Selection ──────────────────────────────────────────────
 ::selection {
-  background: $primary-light;
-  color: $primary-dark;
+  background: vars.$primary-light;
+  color: vars.$primary-dark;
 }
 
 // ─── AG Grid Theme Override ─────────────────────────────────
 .ag-theme-balham {
-  --ag-font-family: #{$font-family};
-  --ag-font-size: #{$font-size-base};
-  --ag-header-font-size: #{$font-size-sm};
+  --ag-font-family: #{vars.$font-family};
+  --ag-font-size: #{vars.$font-size-base};
+  --ag-header-font-size: #{vars.$font-size-sm};
   --ag-header-font-weight: 600;
   --ag-header-background-color: #0066cc;
   --ag-header-foreground-color: #ffffff;
-  --ag-foreground-color: #{$gray-800};
-  --ag-background-color: #{$white};
-  --ag-border-color: #{$border-color};
-  --ag-row-hover-color: #{$gray-50};
-  --ag-row-border-color: #{$gray-100};
-  --ag-selected-row-background-color: #{$primary-light};
-  --ag-range-selection-background-color: #{rgba($primary, 0.08)};
-  --ag-range-selection-border-color: #{$primary};
-  --ag-header-column-resize-handle-color: #{$gray-200};
-  --ag-odd-row-background-color: #{$white};
-  --ag-input-focus-border-color: #{$primary};
-  --ag-input-focus-box-shadow: 0 0 0 2px #{rgba($primary, 0.15)};
-  --ag-chip-background-color: #{$gray-100};
-  --ag-card-shadow: #{$shadow-md};
-  --ag-popup-shadow: #{$shadow-lg};
+  --ag-foreground-color: #{vars.$gray-800};
+  --ag-background-color: #{vars.$white};
+  --ag-border-color: #{vars.$border-color};
+  --ag-row-hover-color: #{vars.$gray-50};
+  --ag-row-border-color: #{vars.$gray-100};
+  --ag-selected-row-background-color: #{vars.$primary-light};
+  --ag-range-selection-background-color: #{rgba(vars.$primary, 0.08)};
+  --ag-range-selection-border-color: #{vars.$primary};
+  --ag-header-column-resize-handle-color: #{vars.$gray-200};
+  --ag-odd-row-background-color: #{vars.$white};
+  --ag-input-focus-border-color: #{vars.$primary};
+  --ag-input-focus-box-shadow: 0 0 0 2px #{rgba(vars.$primary, 0.15)};
+  --ag-chip-background-color: #{vars.$gray-100};
+  --ag-card-shadow: #{vars.$shadow-md};
+  --ag-popup-shadow: #{vars.$shadow-lg};
   --ag-cell-horizontal-padding: 10px;
   --ag-cell-vertical-padding: 6px;
   --ag-header-height: 36px;
@@ -86,38 +86,38 @@ body {
 // ─── AG Grid Alpine Theme Override ──────────────────────────
 .ag-theme-alpine {
   @extend .ag-theme-balham;
-  --ag-alpine-active-color: #{$primary};
-  --ag-selected-row-background-color: #{rgba($primary, 0.06)};
-  --ag-row-hover-color: #{rgba($primary, 0.03)};
+  --ag-alpine-active-color: #{vars.$primary};
+  --ag-selected-row-background-color: #{rgba(vars.$primary, 0.06)};
+  --ag-row-hover-color: #{rgba(vars.$primary, 0.03)};
 }
 
 // ─── Bootstrap Overrides ────────────────────────────────────
 .form-control,
 .form-select {
-  font-size: $font-size-base;
-  border-color: $border-color;
+  font-size: vars.$font-size-base;
+  border-color: vars.$border-color;
   &:focus {
-    border-color: $primary;
-    box-shadow: 0 0 0 2px rgba($primary, 0.15);
+    border-color: vars.$primary;
+    box-shadow: 0 0 0 2px rgba(vars.$primary, 0.15);
   }
 }
 
 // ─── Utility Classes ────────────────────────────────────────
 .text-muted {
-  color: $gray-500;
+  color: vars.$gray-500;
 }
 .text-primary {
-  color: $primary;
+  color: vars.$primary;
 }
 .text-success {
-  color: $success;
+  color: vars.$success;
 }
 .text-warning {
-  color: $warning;
+  color: vars.$warning;
 }
 .text-danger {
-  color: $danger;
+  color: vars.$danger;
 }
 .text-info {
-  color: $info;
+  color: vars.$info;
 }

@@ -1,4 +1,4 @@
-import { Component, input, output, model, signal } from '@angular/core';
+import { Component, input, output, model, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'filter-date-range',
@@ -156,6 +156,7 @@ import { Component, input, output, model, signal } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateRangeFilterComponent {
   readonly start = model<string>('');

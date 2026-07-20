@@ -5,10 +5,6 @@
     (click)="toggle()">
         <i class="bi bi-clock"></i>
         {{displayTime()}}
-        <!-- <i class="bi"
-        [class.bi-chevron-dowm]="!isOpen()"
-        [class..bi-chevron-up]="isOpen()"
-        ></i> -->
         @if(isOpen()){
             <i class="bi bi-chevron-up"></i>
         }@else {
@@ -16,41 +12,6 @@
         }
     </button>
     @if(isOpen()){
-        <!-- <div class="popup">
-
-            <div class="time-section">
-                <div class="title">Start </div>
-                <div class="time-selector">
-                    <select [value]="startHour()" (change)="changeStartHour($any($event.target).value)">
-                       @for (hour of hours; track hour) {
-                            <option [value]="hour">{{hour}}</option>
-                       }
-                    </select>
-                    <span class="colon">:</span>
-                    <select [value]="startMinute()" (change)="changeStartMinute($any($event.target).value)">
-                        @for(minute of Minutes; track minute){
-                            <option [value]="minute">{{minute}}</option>
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="time-section">
-                <div class="title">End </div>
-                <div class="time-selector">
-                    <select [value]="endHour()" (change)="changeEndHour($any($event.target).value)">
-                        @for(hour of hours; track hour){
-                            <option [value]="hour">{{hour}}</option>
-                        }
-                    </select>
-                    <span class="colon">:</span>
-                    <select [value]="endMinute()" (change)="changeEndMinute($any($event.target).value)">
-                        @for(minute of Minutes; track minute){
-                            <option [value]="minute">{{minute}}</option>
-                        }
-                    </select>
-                </div>
-            </div>
-        </div> -->
    <div class="popup">
      <div class="time-section">
         <span class="time-label">Start Time</span>

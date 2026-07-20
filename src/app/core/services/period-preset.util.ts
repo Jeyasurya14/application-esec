@@ -101,3 +101,49 @@ export function getPeriodPresets(): PeriodPreset[]{
 
     ]
 }
+
+export function buildYearOptions(): { label: string; value: string }[] {
+  const years: { label: string; value: string }[] = [];
+  for (let y = 2020; y <= 2026; y++) {
+    years.push({ label: `${y}`, value: `${y}` });
+  }
+  return years;
+}
+
+
+const MONTH_LABELS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+export function buildMonthOptions(): { label: string; value: string }[] {
+  return MONTH_LABELS.map((label, i) => ({ label, value: `${i + 1}` }));
+}
+
+
+
+export function buildQuarterOptions(): { label: string; value: string }[] {
+    const currentYear = new Date().getFullYear();
+    const currentQuarter = Math.floor(new Date().getMonth() / 3) + 1;
+  const options: { label: string; value: string }[] = [];
+  let y = currentYear;
+  let q = currentQuarter;
+  for (let i = 0; i < 4; i++) {
+    options.unshift({ label: `Q${q}-${y}`, value: `Q${q}-${y}` });
+    q--;
+    if (q === 0) {
+      q = 4;
+      y--;
+    }
+  }
+  return options;
+}

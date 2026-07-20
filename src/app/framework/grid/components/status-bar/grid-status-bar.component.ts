@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { GridStateService } from "../../services/grid-state.service";
 
 @Component({
@@ -9,7 +9,8 @@ import { GridStateService } from "../../services/grid-state.service";
         CommonModule
     ],
     templateUrl:'./grid-status-bar.component.html',
-    styleUrl:'./grid-status-bar.component.scss'
+    styleUrl:'./grid-status-bar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class GridStatusBarComponent{

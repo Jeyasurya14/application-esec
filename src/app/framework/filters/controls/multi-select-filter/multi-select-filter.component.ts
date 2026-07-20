@@ -1,4 +1,4 @@
-import { Component, input, output, model, HostListener } from '@angular/core';
+import { Component, input, output, model, HostListener, ChangeDetectionStrategy, ElementRef, inject, signal } from '@angular/core';
 import { FilterOption } from '../../models';
 
 @Component({
@@ -48,7 +48,7 @@ import { FilterOption } from '../../models';
               type="text"
               class="multi-select__search-input"
               placeholder="Filter options..."
-              (input)="filterOpts = $any($event.target).value"
+              (input)="filterOpts.set($any($event.target).value)"
             />
           </div>
           <div class="multi-select__actions">
@@ -267,8 +267,11 @@ import { FilterOption } from '../../models';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiSelectFilterComponent {
+  private readonly el = inject(ElementRef);
+
   readonly value = model<(string | number)[]>([]);
   readonly label = input<string>();
   readonly placeholder = input<string>();
@@ -279,10 +282,10 @@ export class MultiSelectFilterComponent {
 
   readonly open = model(false);
   readonly String = String;
-  filterOpts = '';
+  readonly filterOpts = signal('');
 
   filteredOptions(): FilterOption[] {
-    const q = this.filterOpts.toLowerCase();
+    const q = this.filterOpts().toLowerCase();
     return q
       ? [...this.options()].filter((o) => o.label.toLowerCase().includes(q))
       : [...this.options()];
@@ -325,7 +328,7 @@ export class MultiSelectFilterComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(event: MouseEvent): void {
-    if (this.open() && !(event.target as HTMLElement).closest('.multi-select')) {
+    if (this.open() && !this.el.nativeElement.contains(event.target as Node)) {
       this.open.set(false);
     }
   }

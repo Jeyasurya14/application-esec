@@ -1,4 +1,4 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'filter-numeric-range',
@@ -85,6 +85,7 @@ import { Component, input, output, model } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumericRangeFilterComponent {
   readonly min = model<number | null>(null);

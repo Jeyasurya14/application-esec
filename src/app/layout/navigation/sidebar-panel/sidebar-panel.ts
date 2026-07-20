@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { WorkspaceService } from '../../../framework/workspace';
 import { Screen } from '../../../core/models/screen.model';
@@ -12,6 +12,7 @@ import { Screen } from '../../../core/models/screen.model';
     '[class.is-open]': 'isOpen()',
     '[style.--panel-offset-top.px]': 'panelTop()',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarPanel {
   private readonly sidebar = inject(SidebarService)

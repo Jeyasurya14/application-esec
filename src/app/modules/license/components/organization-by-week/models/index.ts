@@ -1,1 +1,0 @@
-export * from './organization-by-week.model'

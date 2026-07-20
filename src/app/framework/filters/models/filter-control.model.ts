@@ -1,5 +1,6 @@
 import { FilterOption, FilterOptionGroup } from './filter-option.model';
 import { FilterType } from './filter-type.model';
+import { FilterType as FilterDefType } from './filter-definition-type.type';
 
 export interface FilterControl<T = unknown> {
   id: string;
@@ -18,4 +19,10 @@ export interface FilterControl<T = unknown> {
   clearable?: boolean;
   param?: string;
   immediate?: boolean;
+  filter?: {
+    type: FilterDefType;
+    field: string;
+    fields?: string[];
+    valueFieldMap?: Record<string, string>;
+  };
 }

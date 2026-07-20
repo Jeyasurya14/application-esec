@@ -1,8 +1,4 @@
 import { defineModule, ModuleRegistration } from '../../core/registry/define-module';
-import { OrganizationByWeekComponent } from './components/organization-by-week/view/organization-by-week.component';
-import { OrganizationComponent } from './components/organization/view/organization.component';
-import { OrganizationByYearMonthComponent } from './components/organization-by-year-month/view/organization-by-year-month.component';
-import { DivisionComponent } from './components/division/view/division.component';
 const sidebar_title = 'LIC';
 export const licenseManifest: ModuleRegistration = defineModule({
   id: 'license',
@@ -15,28 +11,38 @@ export const licenseManifest: ModuleRegistration = defineModule({
       title: 'Organization',
       icon: 'bi bi-building',
       sidebar_title,
-      component: OrganizationComponent,
+      loadComponent: () =>
+        import('./screens/organization/organization.component').then(
+          (m) => m.OrganizationComponent,
+        ),
     },
 
     {
       title: 'Organization By Week',
       icon: 'bi bi-calendar-week',
       sidebar_title,
-      component: OrganizationByWeekComponent,
+      loadComponent: () =>
+        import('./screens/organization-by-week/organization-by-week.component').then(
+          (m) => m.OrganizationByWeekComponent,
+        ),
     },
 
     {
       title: 'Organization By Year Month',
       icon: 'bi bi-calendar3',
       sidebar_title,
-      component: OrganizationByYearMonthComponent,
+      loadComponent: () =>
+        import('./screens/organization-by-year-month/organization-by-year-month.component').then(
+          (m) => m.OrganizationByYearMonthComponent,
+        ),
     },
 
     {
       title: 'Division',
       icon: 'bi bi-diagram-3',
       sidebar_title,
-      component:DivisionComponent
+      loadComponent: () =>
+        import('./screens/division/division.component').then((m) => m.DivisionComponent),
     },
 
     {

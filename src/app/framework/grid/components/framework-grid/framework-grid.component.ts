@@ -1,4 +1,4 @@
-import { Component, computed, inject, Injector, input, signal } from '@angular/core';
+import { Component, computed, inject, Injector, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { GridContext } from '../../models';
 import { GridApiService } from '../../services/grid-api.service';
 import {
@@ -20,6 +20,7 @@ import { GridLoadingOverlayComponent } from '../overlays/loading';
 import { GridSelectionService } from '../../services/grid-selection.service';
 import { GridLayoutService } from '../../services/grid-layout.service';
 import { DataSource } from '../../../datasource/datasource';
+import { InlineDataSource } from '../../../../shared/sub-tab-host/inline-datasource';
 import { FilterBarComponent } from '../../../filters/components/filter-bar/filter-bar.component';
 import { FilterState } from '../../../filters/models';
 import { KpiCardsComponent } from '../../../../shared/kpi-cards';
@@ -41,9 +42,11 @@ import { firstValueFrom } from 'rxjs';
     GridService,
     GridLayoutService,
     GridSelectionService,
+    InlineDataSource,
   ],
   templateUrl: './framework-grid.component.html',
   styleUrl: './framework-grid.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrameworkGridComponent<T> {
   readonly context = input.required<GridContext<T>>();
@@ -100,7 +103,6 @@ export class FrameworkGridComponent<T> {
   private async reloadGrid(): Promise<void> {
     const api = this.api.getApi();
     if (!api) return;
-    console.log(api);
     this.state.setLoading(true);
     api.showLoadingOverlay();
 
@@ -119,17 +121,25 @@ export class FrameworkGridComponent<T> {
 
   private async loadGridData(api: GridApi) {
     try {
-      const datasource = this.injector.get<DataSource<T>>(this.context().datasource);
+      const context = this.context();
+      const datasource = this.injector.get<DataSource<T>>(context.datasource);
+      if (context.inlineConfig && datasource instanceof InlineDataSource) {
+        datasource.configure(
+          context.inlineConfig.procedure,
+          context.inlineConfig.columns,
+          context.inlineConfig.params,
+        );
+      }
       const response = await firstValueFrom(
         datasource.load({
           filters: this.currentFilters,
           sorts: [],
           page: { offset: 0, size: 0 },
+          filterConfig: this.filterConfig() ?? undefined,
         }),
       );
-      console.log(response);
       api.hideOverlay();
-      this.rowData.set([...response.rows]);
+      this.rowData.set([...response.rows] as T[]);
       api.setGridOption('rowData', [...response.rows]);
       this.state.setError(null);
       this.grid.finishLoading();

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { GridToolbar } from "../../models";
 import { GridService } from "../../services";
 
@@ -9,7 +9,8 @@ import { GridService } from "../../services";
     standalone:true,
     imports:[CommonModule],
     templateUrl:'./grid-toolbar.component.html',
-    styleUrl:'./grid-toolbar.component.scss'
+    styleUrl:'./grid-toolbar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class GridToolbarComponent{

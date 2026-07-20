@@ -1,6 +1,6 @@
-import { ProcedureContext } from "./procedure-context.dto";
+import { ProcedureContext } from './procedure-context.dto';
 
-export interface ProcedureDto{
-    sql:string,
-    context?:ProcedureContext
+export interface ProcedureDto {
+  sql: string;
+  context?: ProcedureContext;
 }

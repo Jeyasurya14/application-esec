@@ -1,4 +1,4 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 import { FilterOption } from '../../models';
 
 @Component({
@@ -115,6 +115,7 @@ import { FilterOption } from '../../models';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxGroupFilterComponent {
   readonly selected = model<string[]>([]);

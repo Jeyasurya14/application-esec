@@ -3,7 +3,7 @@ import { ProcedureApiService } from '../data/services';
 import { DataSource } from './datasource';
 import { DataSourceRequest, DataSourceResponse } from './models';
 import { Observable, map } from 'rxjs';
-import { FilterDefinition, FilterState } from '../filters';
+import { FilterConfig, FilterDefinition, FilterState } from '../filters';
 
 function escapeSql(val: unknown): string {
   if (val === null || val === undefined) return 'NULL';
@@ -33,30 +33,57 @@ export class DataSourceEngine {
     procedureName: string,
     request: DataSourceRequest,
   ): Observable<DataSourceResponse<T>> {
+    const config = request.filterConfig;
     const paramNames = datasource.getProcedureParams();
+    const sql = this.buildSql(procedureName, paramNames, request.filters, config);
+
+    const allDefs = this.buildFilterDefs(datasource, config);
+
+    return this.procedureApi
+      .execute<T>(sql)
+      .pipe(map((rows) => this.applyFilters(rows, allDefs, request.filters)));
+  }
+
+  private buildSql(
+    procedureName: string,
+    paramNames: readonly string[],
+    filters: FilterState,
+    config?: FilterConfig,
+  ): string {
     if (paramNames.length === 0) {
-      return this.procedureApi
-        .execute<T>(`CALL ${procedureName}`)
-        .pipe(
-          map((rows) =>
-            this.applyFilters(rows, datasource.getFilterDefinitions(), request.filters),
-          ),
-        );
+      return `CALL ${procedureName}`;
     }
 
     const paramValues = paramNames
       .map((name) => {
-        const val = request.filters[name];
-        return escapeSql(val);
+        const control = config?.controls.find((c) => c.param === name || c.id === name);
+        const filterKey = control ? control.id : name;
+        return escapeSql(filters[filterKey]);
       })
       .join(', ');
 
-    const sql = `CALL ${procedureName}(${paramValues})`;
-    return this.procedureApi
-      .execute<T>(sql)
-      .pipe(
-        map((rows) => this.applyFilters(rows, datasource.getFilterDefinitions(), request.filters)),
-      );
+    return `CALL ${procedureName}(${paramValues})`;
+  }
+
+  private buildFilterDefs<T>(
+    datasource: DataSource<T>,
+    config?: FilterConfig,
+  ): readonly FilterDefinition[] {
+    const dsDefs = datasource.getFilterDefinitions();
+
+    if (!config) return dsDefs;
+
+    const autoDefs: FilterDefinition[] = config.controls
+      .filter((c) => c.filter)
+      .map((c) => ({
+        id: c.id,
+        type: c.filter!.type,
+        field: c.filter!.field,
+        fields: c.filter!.fields,
+        valueFieldMap: c.filter!.valueFieldMap,
+      }));
+
+    return [...dsDefs, ...autoDefs];
   }
 
   private applyFilters<T>(
@@ -162,6 +189,54 @@ export class DataSourceEngine {
       case 'isNotNull': {
         const fieldVal = (row as Record<string, unknown>)[def.field];
         return fieldVal !== null && fieldVal !== undefined;
+      }
+
+      case 'periodRange': {
+        const raw = (row as Record<string, unknown>)[def.field] as string | undefined;
+        if (!raw) return false;
+        const rowDate = new Date(raw);
+        if (isNaN(rowDate.getTime())) return false;
+
+        const val = String(value);
+        let start: Date;
+        let end = new Date();
+
+        if (val === 'YTD') {
+          start = new Date(end.getFullYear(), 0, 1);
+        } else {
+          const num = parseInt(val, 10);
+          if (!isNaN(num)) {
+            start = new Date();
+            start.setDate(start.getDate() - num);
+          } else {
+            const qm = val.match(/^Q([1-4])-(\d{4})$/);
+            if (qm) {
+              const q = parseInt(qm[1], 10);
+              const y = parseInt(qm[2], 10);
+              start = new Date(y, (q - 1) * 3, 1);
+              end = new Date(y, q * 3, 0);
+            } else {
+              const ym = val.match(/^\d{4}$/);
+              if (ym) {
+                const y = parseInt(ym[0], 10);
+                start = new Date(y, 0, 1);
+                end = new Date(y, 11, 31);
+              } else {
+                return true;
+              }
+            }
+          }
+        }
+        return rowDate >= start && rowDate <= end;
+      }
+
+      case 'optionMatch': {
+        const map = def.valueFieldMap;
+        if (!map) return true;
+        const field = map[String(value)];
+        if (!field) return true;
+        const fieldVal = (row as Record<string, unknown>)[field];
+        return fieldVal != null && Number(fieldVal) > 0;
       }
 
       default:

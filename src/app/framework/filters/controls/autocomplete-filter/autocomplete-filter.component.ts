@@ -1,4 +1,4 @@
-import { Component, input, output, model, signal, HostListener } from '@angular/core';
+import { Component, input, output, model, signal, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { FilterOption } from '../../models';
 
 @Component({
@@ -151,6 +151,7 @@ import { FilterOption } from '../../models';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteFilterComponent {
   readonly value = model<string>('');

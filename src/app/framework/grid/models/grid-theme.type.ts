@@ -1,4 +1,1 @@
-export type GridTheme = 
-            | 'ag-theme-quartz'
-            | 'ag-theme-alphine'
-            | 'ag-theme-balham'
+export type GridTheme = 'ag-theme-quartz' | 'ag-theme-alpine' | 'ag-theme-balham';

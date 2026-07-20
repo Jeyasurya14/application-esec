@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { INoRowsOverlayAngularComp } from 'ag-grid-angular';
 import { INoRowsOverlayParams } from 'ag-grid-community';
 import { GridStateService } from '../../../services/grid-state.service';
@@ -8,6 +8,7 @@ import { GridStateService } from '../../../services/grid-state.service';
   standalone: true,
   templateUrl: './grid-error-overlay.component.html',
   styleUrl: './grid-error-overlay.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridErrorOverlayComponent implements INoRowsOverlayAngularComp {
   private readonly state = inject(GridStateService);

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { LayoutComponent } from './layout/layout';
 
 @Component({
@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout';
   imports: [LayoutComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   @HostListener('document:contextmenu', ['$event'])

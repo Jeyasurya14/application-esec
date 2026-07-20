@@ -1,0 +1,14 @@
+<div class="sub-tab-host">
+  <div class="sub-tab-strip">
+    @for (tab of tabs(); track tab.id) {
+      <button class="sub-tab" [class.active]="activeId() === tab.id" (click)="selectTab(tab)">
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+  <div class="sub-tab-body">
+    @if (gridContext(); as ctx) {
+      <framework-grid [context]="ctx" />
+    }
+  </div>
+</div>

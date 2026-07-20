@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { KpiCardsConfig } from './kpi-cards.model';
 
 const COLOR_MAP: Record<string, { bg: string; text: string; icon: string }> = {
@@ -127,6 +127,7 @@ const COLOR_MAP: Record<string, { bg: string; text: string; icon: string }> = {
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiCardsComponent {
   readonly config = input.required<KpiCardsConfig>();

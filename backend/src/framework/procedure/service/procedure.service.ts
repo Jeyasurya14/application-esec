@@ -15,14 +15,34 @@ export class ProcedureService {
     try {
       const rows = await this.executor.execute<T>(sql);
       this.logger.info('Procedure executed', {
-        procedure: sql.substring(0, 100),
+        sql: sql.substring(0, 100),
         duration: Date.now() - start,
         rows: rows.length,
       });
       return rows;
     } catch (error) {
       this.logger.error('Procedure execution failed', {
-        procedure: sql.substring(0, 100),
+        sql: sql.substring(0, 100),
+        duration: Date.now() - start,
+        error: String(error),
+      });
+      throw error;
+    }
+  }
+
+  async executeRaw<T>(sql: string): Promise<T[]> {
+    const start = Date.now();
+    try {
+      const rows = await this.executor.executeRaw<T>(sql);
+      this.logger.info('Raw SQL executed', {
+        sql: sql.substring(0, 100),
+        duration: Date.now() - start,
+        rows: rows.length,
+      });
+      return rows;
+    } catch (error) {
+      this.logger.error('Raw SQL execution failed', {
+        sql: sql.substring(0, 100),
         duration: Date.now() - start,
         error: String(error),
       });

@@ -1,4 +1,5 @@
 import { ProcedureService as FrameworkProcedureService } from '../../../framework/procedure';
+import { ProcedureDto } from '../model';
 
 export class ProcedureModuleService {
   private readonly framework: FrameworkProcedureService;
@@ -7,7 +8,7 @@ export class ProcedureModuleService {
     this.framework = framework;
   }
 
-  async execute<T>(sql: string): Promise<T[]> {
-    return this.framework.execute<T>(sql);
+  async execute<T>(dto: ProcedureDto): Promise<T[]> {
+    return this.framework.execute<T>(dto.sql);
   }
 }

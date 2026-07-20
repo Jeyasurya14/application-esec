@@ -1,4 +1,4 @@
-import { Component, input, output, model, HostBinding } from '@angular/core';
+import { Component, input, output, model, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'filter-search',
@@ -112,6 +112,7 @@ import { Component, input, output, model, HostBinding } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFilterComponent {
   readonly value = model<string>('');

@@ -12,7 +12,7 @@ export class ProcedureController {
   execute = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const dto: ProcedureDto = req.body;
-      const rows = await this.service.execute(dto.sql);
+      const rows = await this.service.execute(dto);
       return ResponseBuilder.success(res, rows);
     } catch (error) {
       next(error);

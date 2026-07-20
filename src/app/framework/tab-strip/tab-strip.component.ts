@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, inject, input, output, signal, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, inject, input, output, signal, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { TabStripItem } from "./tab-strip.model";
 import { SidebarService } from "../../core/services/sidebar.service";
 
@@ -9,7 +9,8 @@ import { SidebarService } from "../../core/services/sidebar.service";
     standalone:true,
     imports:[CommonModule],
     templateUrl:'./tab-strip.component.html',
-    styleUrl:'./tab-strip.component.scss'
+    styleUrl:'./tab-strip.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class TabStrip implements AfterViewInit{

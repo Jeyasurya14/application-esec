@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MenuItems, MenuTextItem } from '../../../core/models/sidebar-item.model';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { Module } from '../../../core/models/module.model';
@@ -7,6 +7,7 @@ import { calculatePanelTop } from '../panel-position';
   selector: 'app-sidebar',
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
   readonly sidebar = inject(SidebarService);

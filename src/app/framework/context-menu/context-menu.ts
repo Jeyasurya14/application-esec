@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, Injectable } from "@angular/core";
+import { Component, ElementRef, HostListener, inject, Injectable, ChangeDetectionStrategy } from "@angular/core";
 import { ContextMenuService } from "./context-menu.service";
 import { CommonModule } from "@angular/common";
 import { ContextMenuItem } from "./context-menu.model";
@@ -17,7 +17,8 @@ import { ContextMenuItem } from "./context-menu.model";
        '[style.left.px]':'menu.x()',
        '[style.top.px]':'menu.y()',
        '[class.open]':'menu.opened()'
-    }
+    },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ContextMenu{

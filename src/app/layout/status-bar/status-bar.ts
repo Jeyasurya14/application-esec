@@ -5,7 +5,7 @@ import {
   effect,
   input,
   output,
-  signal
+  signal, ChangeDetectionStrategy
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -28,7 +28,8 @@ import { TimeRangePicker, TimeRange } from "../../shared/time-range-picker/time-
     TimeRangePicker,
 ],
   templateUrl: './status-bar.html',
-  styleUrl: './status-bar.scss'
+  styleUrl: './status-bar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBarComponent {
   onTimeChanged(range: TimeRange) {

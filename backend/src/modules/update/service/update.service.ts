@@ -8,6 +8,6 @@ export class UpdateModuleService {
   }
 
   async execute(sql: string): Promise<unknown> {
-    return await this.procedure.execute(sql);
+    return await this.procedure.executeRaw(sql);
   }
 }

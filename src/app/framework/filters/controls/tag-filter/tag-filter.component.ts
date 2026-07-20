@@ -1,4 +1,4 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'filter-tag',
@@ -143,6 +143,7 @@ import { Component, input, output, model } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagFilterComponent {
   readonly tags = model<string[]>([]);

@@ -1,4 +1,4 @@
-export interface DateSourceContext{
-    workspaceId:string;
-    tabId:string
+export interface DataSourceContext {
+  workspaceId: string;
+  tabId: string;
 }

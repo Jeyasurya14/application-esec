@@ -7,7 +7,6 @@ export const TOKENS = {
 
   // Procedure Engine
   PROCEDURE_VALIDATOR: 'ProcedureValidator',
-  PROCEDURE_PARSER: 'ProcedureParser',
   PROCEDURE_EXECUTOR: 'ProcedureExecutor',
   PROCEDURE_SERVICE: 'ProcedureService',
 

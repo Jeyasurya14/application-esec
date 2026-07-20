@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { HeaderComponent } from './header/header';
 import { SidebarComponent } from './navigation/sidebar/sidebar';
 import { SidebarPanel } from './navigation/sidebar-panel/sidebar-panel';
@@ -25,6 +25,7 @@ import { ContextMenu } from '../framework/context-menu/context-menu';
 ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
   // protected readonly periods: PeriodPreset[] = [

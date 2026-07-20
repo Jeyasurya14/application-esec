@@ -1,4 +1,4 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'filter-date',
@@ -74,6 +74,7 @@ import { Component, input, output, model } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateFilterComponent {
   readonly value = model<string>('');
