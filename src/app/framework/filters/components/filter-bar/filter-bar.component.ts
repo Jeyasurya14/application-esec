@@ -1,4 +1,13 @@
-import { Component, computed, inject, input, OnDestroy, output, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnDestroy,
+  output,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { FilterConfig, FilterState } from '../../models';
 import { FilterControl } from '../../models/filter-control.model';
 import { FilterService } from '../../services';
@@ -93,6 +102,15 @@ export class FilterBarComponent implements OnDestroy {
   readonly bodyControls = computed(() => this.config().controls.filter((c) => c.type !== 'search'));
 
   readonly searchControl = computed(() => this.config().controls.find((c) => c.type === 'search'));
+
+  controlValue(ctrl: FilterControl): unknown {
+    const state = this.filters.get(this.tabId());
+    return state[ctrl.id] ?? ctrl.value;
+  }
+
+  asStringArray(value: unknown): string[] {
+    return Array.isArray(value) ? value.map(String) : [];
+  }
 
   private emit(): void {
     this.changed.emit(this.filters.get(this.tabId()));

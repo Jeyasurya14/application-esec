@@ -26,6 +26,7 @@ import { FilterOption } from '../../models';
   `,
   styles: [
     `
+    // @use '../../../../styles/variables' as *;
       :host {
         display: inline-flex;
       }

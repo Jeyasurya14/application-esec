@@ -122,6 +122,7 @@
               }
               @case ('checkbox-group') {
                 <filter-checkbox-group
+                  [selected]="asStringArray(controlValue(ctrl))"
                   [label]="ctrl.label"
                   [options]="ctrl.options ?? []"
                   [width]="ctrl.width ?? 320"

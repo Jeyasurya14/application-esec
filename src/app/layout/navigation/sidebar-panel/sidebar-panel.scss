@@ -22,7 +22,9 @@
   left: 2px;
   width: 240px;
   height: auto;
-  max-height: calc(100vh - $header-height - $status-bar-height - 12px);
+  max-height: calc(
+    100vh - var(--panel-offset-top) - #{$header-height} - #{$status-bar-height} - 12px
+  );
   display: flex;
   flex-direction: column;
   background: $white;
@@ -120,12 +122,10 @@
 }
 
 .sidebar-body {
-  display: flex;
-  flex-direction: column;
   flex: 1;
   min-height: 0;
   padding: $spacing-3;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .sidebar-section-label {
@@ -139,12 +139,9 @@
 }
 
 .sidebar-actions {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  overflow-y: auto;
-  min-height: 0;
 }
 
 .action-chip {

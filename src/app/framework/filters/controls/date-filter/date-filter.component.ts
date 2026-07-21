@@ -22,6 +22,7 @@ import { Component, input, output, model, ChangeDetectionStrategy } from '@angul
   `,
   styles: [
     `
+    // @use '../../../../styles/variables' as *;
       :host {
         display: inline-flex;
       }

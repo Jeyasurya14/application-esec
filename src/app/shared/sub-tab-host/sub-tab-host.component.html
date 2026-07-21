@@ -6,8 +6,22 @@
       </button>
     }
   </div>
+  
+   @if (activeTab()?.children; as childTabs) {
+    @if (childTabs.length > 0) {
+      <div class="sub-tab-strip child-strip">
+        @for (child of childTabs; track child.id) {
+          <button class="sub-tab child-tab" 
+                  [class.active]="activeChildId() === child.id" 
+                  (click)="selectChildTab(child)">
+            {{ child.label }}
+          </button>
+        }
+      </div>
+    }
+  }
   <div class="sub-tab-body">
-    @if (gridContext(); as ctx) {
+    @for (ctx of activeGridContexts(); track ctx.tabId) {
       <framework-grid [context]="ctx" />
     }
   </div>

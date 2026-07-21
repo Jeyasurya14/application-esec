@@ -15,21 +15,32 @@ import { FilterConfig } from '../../framework/filters';
 })
 export class SubTabHostComponent {
   readonly tabs = input.required<readonly SubTabDefinition[]>();
+  readonly hostId = input('sub-tab');
+  
   readonly activeId = signal<string>('');
+  readonly activeChildId = signal<string>(''); 
 
   constructor() {
     effect(() => {
       const tabs = this.tabs();
       if (tabs.length > 0 && !this.activeId()) {
-        this.activeId.set(tabs[0].id);
+        this.initializeTabState(tabs[0]);
       }
     });
   }
 
   readonly activeTab = computed(() => this.tabs().find((t) => t.id === this.activeId()));
 
+  
+  readonly activeChildTab = computed(() => {
+    const parent = this.activeTab();
+    if (!parent?.children) return null;
+    return parent.children.find((c) => c.id === this.activeChildId()) || null;
+  });
+
+  
   readonly gridContext = computed<GridContext<unknown> | null>(() => {
-    const tab = this.activeTab();
+    const tab = this.activeChildTab() || this.activeTab();
     if (!tab) return null;
 
     let filterConfig: FilterConfig | undefined;
@@ -42,14 +53,18 @@ export class SubTabHostComponent {
             placeholder: 'Search...',
             width: 240,
             param: 'search',
-            filter: { type: 'contains', field: tab.searchFields[0], fields: [...tab.searchFields] },
+            filter: {
+              type: 'contains',
+              field: tab.searchFields[0],
+              fields: [...tab.searchFields],
+            },
           },
         ],
       };
     }
 
     return {
-      tabId: tab.id,
+      tabId: `${this.hostId()}.${tab.id}`,
       title: tab.label,
       columns: gridColumns(...tab.columns),
       datasource: InlineDataSource,
@@ -57,12 +72,31 @@ export class SubTabHostComponent {
       inlineConfig: {
         procedure: tab.procedure,
         columns: tab.columns,
-        params: tab.params,
+        params: (tab as any).params, 
       },
     };
   });
 
+  readonly activeGridContexts = computed(() => {
+    const context = this.gridContext();
+    return context ? [context] : [];
+  });
+
   selectTab(tab: SubTabDefinition): void {
+    this.initializeTabState(tab);
+  }
+
+  selectChildTab(childTab: SubTabDefinition): void {
+    this.activeChildId.set(childTab.id);
+  }
+
+  private initializeTabState(tab: SubTabDefinition): void {
     this.activeId.set(tab.id);
+    // Auto-select first child if available, otherwise clear child state
+    if (tab.children && tab.children.length > 0) {
+      this.activeChildId.set(tab.children[0].id);
+    } {
+      this.activeChildId.set('');
+    }
   }
 }

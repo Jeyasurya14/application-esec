@@ -59,6 +59,7 @@ const COLOR_MAP: Record<string, { bg: string; text: string; icon: string }> = {
   `,
   styles: [
     `
+    // @use '../../../../styles/variables' as *;
       :host {
         display: block;
       }

@@ -48,7 +48,6 @@ export function resolveRange(preset:PeriodPreset, today:Date = new Date()): Date
             const startMonth = (preset.quarter! - 1) * 3;
             const start = new Date(preset.year!, startMonth, 1)
             const end = new Date(preset.year!, startMonth + 3, 0)
-
             return{start: startOfDay(start), end: endOfDay(end)}
         }
         case 'year':{

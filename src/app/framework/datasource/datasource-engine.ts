@@ -1,9 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { ProcedureApiService } from '../data/services';
 import { DataSource } from './datasource';
-import { DataSourceRequest, DataSourceResponse } from './models';
+import { DataSourceColumn, DataSourceRequest, DataSourceResponse } from './models';
 import { Observable, map } from 'rxjs';
 import { FilterConfig, FilterDefinition, FilterState } from '../filters';
+
+function normalizeFieldKey(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
 
 function escapeSql(val: unknown): string {
   if (val === null || val === undefined) return 'NULL';
@@ -39,9 +43,46 @@ export class DataSourceEngine {
 
     const allDefs = this.buildFilterDefs(datasource, config);
 
-    return this.procedureApi
-      .execute<T>(sql)
-      .pipe(map((rows) => this.applyFilters(rows, allDefs, request.filters)));
+    return this.procedureApi.execute<T>(sql).pipe(
+      map((rows) => this.normalizeRowsForColumns(rows, datasource.getColumns())),
+      map((rows) => this.applyFilters(rows, allDefs, request.filters)),
+    );
+  }
+
+  private normalizeRowsForColumns<T>(
+    rows: readonly T[],
+    columns: readonly DataSourceColumn[],
+  ): T[] {
+    if (!columns.length) return [...rows];
+
+    return rows.map((row) => {
+      if (!row || typeof row !== 'object') return row;
+
+      const record = row as Record<string, unknown>;
+      const normalizedKeyMap = new Map<string, string>();
+
+      for (const key of Object.keys(record)) {
+        normalizedKeyMap.set(normalizeFieldKey(key), key);
+      }
+
+      let normalized: Record<string, unknown> | null = null;
+
+      for (const column of columns) {
+        const targets = [column.field, column.alias].filter(Boolean) as string[];
+
+        for (const target of targets) {
+          if (record[target] !== undefined) continue;
+
+          const sourceKey = normalizedKeyMap.get(normalizeFieldKey(target));
+          if (!sourceKey || sourceKey === target) continue;
+
+          normalized ??= { ...record };
+          normalized[target] = record[sourceKey];
+        }
+      }
+
+      return (normalized ?? record) as T;
+    });
   }
 
   private buildSql(

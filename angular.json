@@ -45,6 +45,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            
             "assets": [
               {
                 "glob": "**/*",
@@ -69,6 +70,7 @@
               ],
               "outputHashing": "all"
             },
+            
             "development": {
               "optimization": false,
               "extractLicenses": false,

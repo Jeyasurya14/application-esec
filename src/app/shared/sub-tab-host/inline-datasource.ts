@@ -12,6 +12,6 @@ export class InlineDataSource extends DataSource<unknown> {
   configure(procedure: string, columnFields: readonly string[], params?: readonly string[]) {
     this.procedure = procedure;
     this.columns = datasourceColumns(...columnFields);
-    if (params) this.procedureParams = params;
+    this.procedureParams = params ? [...params] : [];
   }
 }

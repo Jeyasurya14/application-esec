@@ -19,6 +19,24 @@
   background: #fafafa;
   padding: 0 8px;
   flex-shrink: 0;
+
+  // Level 2 Child Strip modifications
+  &.child-strip {
+    background: #f1f1f1; // Slightly darker background for hierarchy
+    padding-left: 24px;   // Indents sub-tabs slightly from the left edge
+    border-bottom: 1px solid #dcdcdc;
+
+    .child-tab {
+      padding: 5px 12px;  // Slightly more compact sizing
+      font-size: 11px;    // Distinct typography scale from parent
+
+      &.active {
+        background: #fafafa; // Matches the parent strip's normal shade
+        color: #0d47a1;     // Darker blue accent for the nested state
+        border-bottom-color: #0d47a1;
+      }
+    }
+  }
 }
 
 .sub-tab {
@@ -34,7 +52,7 @@
 
   &:hover {
     color: #333;
-    background: #f0f0f0;
+    background: #e4e4e4;
   }
 
   &.active {

@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { DataSource } from '../../../../framework/datasource/datasource';
 import { DataSourceRequest, DataSourceResponse } from '../../../../framework/datasource/models';
 import { FilterState } from '../../../../framework/filters';
 import { OrganizationByWeek } from './organization-by-week.model';
 import { datasourceColumns } from '../../../../framework/columns';
+import {
+  isOrganizationWeekPrimary,
+  OrganizationWeekSourceRow,
+  pivotOrganizationWeekRows,
+} from '../organization-week-grid';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +17,7 @@ import { datasourceColumns } from '../../../../framework/columns';
 export class OrganizationByWeekDataSource extends DataSource<OrganizationByWeek> {
   protected override procedure = 'esms_m.r_organization_week_report';
   protected override columns = datasourceColumns(
-     'sw',
+    'sw',
     'server',
     'location',
     'lic',
@@ -31,13 +36,20 @@ export class OrganizationByWeekDataSource extends DataSource<OrganizationByWeek>
 
   override load(request: DataSourceRequest): Observable<DataSourceResponse<OrganizationByWeek>> {
     const range = request.filters['range'] as { start?: string; end?: string } | undefined;
-    console.log(range)
     const filters: FilterState = {
       start_date: range?.start || '2021-01-31',
       end_date: range?.end || '2021-02-06',
       hours: '9.75',
-      extra: '',
+      extra: isOrganizationWeekPrimary(request.filters) ? 'Y' : '',
     };
-    return super.load({ ...request, filters });
+
+    return super.load({ ...request, filters }).pipe(
+      map((response) => {
+        const rows = pivotOrganizationWeekRows(
+          response.rows as readonly OrganizationWeekSourceRow[],
+        );
+        return { rows: rows as readonly OrganizationByWeek[], totalRows: rows.length };
+      }),
+    );
   }
 }

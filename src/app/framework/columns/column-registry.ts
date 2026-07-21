@@ -1,9 +1,8 @@
-import type { GridColumn } from '../grid';
+import type { ColDef } from 'ag-grid-community';
 
-export interface ColumnDef extends GridColumn {}
+export type ColumnDef = ColDef;
 
 export const COLUMN_REGISTRY: Record<string, ColumnDef> = {
-
   sw: { field: 'sw', headerName: 'Software', width: 180 },
   server: { field: 'server', headerName: 'Server', width: 160 },
   location: { field: 'location', headerName: 'Location', width: 140 },
@@ -28,7 +27,6 @@ export const COLUMN_REGISTRY: Record<string, ColumnDef> = {
   qty_wam: { field: 'qty_wam', headerName: 'Qty WAM', width: 125 },
   qty_r: { field: 'qty_r', headerName: 'Qty R', width: 80 },
 
-  
   p_dp: { field: 'p_dp', headerName: 'Peak (DP)', width: 110 },
   p_dpm: { field: 'p_dpm', headerName: 'Peak Mean (DPM)', width: 120 },
   p_da: { field: 'p_da', headerName: 'Avg (DA)', width: 100 },
@@ -38,7 +36,6 @@ export const COLUMN_REGISTRY: Record<string, ColumnDef> = {
   p_wa: { field: 'p_wa', headerName: 'Work Avg (WA)', width: 120 },
   p_wam: { field: 'p_wam', headerName: 'Work Avg Mean (WAM)', width: 150 },
   p_dw_q: { field: 'p_dw_q', headerName: 'Peak (DW)', width: 100 },
-
 
   ndept: { field: 'ndept', headerName: '# Dept', width: 80 },
   ndivn: { field: 'ndivn', headerName: '# Div', width: 80 },
@@ -59,7 +56,6 @@ export const COLUMN_REGISTRY: Record<string, ColumnDef> = {
   li_holi: { field: 'li_holi', headerName: 'Holidays', width: 80 },
   used_lic_hours: { field: 'used_lic_hours', headerName: 'Used Lic Hours', width: 100 },
   avail_lic_hours: { field: 'avail_lic_hours', headerName: 'Avail Lic Hours', width: 120 },
-
 
   wksn: { field: 'wksn', headerName: 'Workstation', width: 180 },
   ip: { field: 'ip', headerName: 'IP Address', width: 130 },

@@ -30,6 +30,7 @@ import { FilterOptionGroup } from '../../models';
   `,
   styles: [
     `
+    // @use '../../../../styles/variables' as *;
       :host {
         display: inline-flex;
       }

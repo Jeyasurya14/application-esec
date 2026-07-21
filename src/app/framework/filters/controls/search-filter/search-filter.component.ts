@@ -30,6 +30,7 @@ import { Component, input, output, model, HostBinding, ChangeDetectionStrategy }
   `,
   styles: [
     `
+    // @use '../../../../styles/variables' as *;
       :host {
         display: inline-flex;
       }

@@ -46,6 +46,7 @@ import { Component, input, output, model, signal, ChangeDetectionStrategy } from
   `,
   styles: [
     `
+    // @use '../../../../styles/variables' as *;
       :host {
         display: inline-flex;
       }

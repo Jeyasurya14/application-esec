@@ -13,7 +13,6 @@ export class SidebarComponent {
   readonly sidebar = inject(SidebarService);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
 
-
   menuTextItems: MenuTextItem[] = [
     { id: 1, char: 'B', title: 'Bentley' },
     { id: 2, char: 'S', title: 'Service' },
@@ -26,19 +25,17 @@ export class SidebarComponent {
     { id: 9, char: 'V', title: 'Vendor' },
   ];
 
-  selectModule(module: Module, trigger: HTMLElement){
-      const sidebarElement = this.elementRef.nativeElement.querySelector('.sidebar')
-      if(!sidebarElement){
-        return;
-      }
-      const panelTop = calculatePanelTop(
-        trigger,
-        sidebarElement
-        );
+  selectModule(module: Module, trigger: HTMLElement) {
+    const sidebarElement = this.elementRef.nativeElement.querySelector('.sidebar');
+    if (!sidebarElement) {
+      return;
+    }
+    const panelTop = calculatePanelTop(trigger, sidebarElement);
 
-        this.sidebar.selectModule(module.id, panelTop)
-
+    if (this.sidebar.selectedModule() === module.id) {
+      this.sidebar.togglePanel(panelTop);
+    } else {
+      this.sidebar.selectModule(module.id, panelTop);
+    }
   }
-
-
 }
